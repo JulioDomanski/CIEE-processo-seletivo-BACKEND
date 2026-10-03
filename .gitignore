@@ -1,0 +1,68 @@
+# Build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Test results
+TestResults/
+coverage/
+coverage.*
+
+# Publish output
+publish/
+artifacts/
+
+# ASP.NET secrets / local config
+appsettings.Local.json
+appsettings.*.local.json
+
+# Environment files
+.env
+.env.*
+
+# Certificates / keys
+*.pfx
+*.p12
+*.cer
+*.key
+
+# SQLite local databases, caso apareçam
+*.db
+*.db-shm
+*.db-wal
+
+# Generated files
+Generated/
