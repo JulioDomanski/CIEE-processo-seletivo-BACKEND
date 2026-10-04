@@ -26,8 +26,23 @@ public class CurriculosController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Curriculo>>> GetCurriculos()
+    public async Task<ActionResult> GetCurriculos([FromQuery] int? id)
     {
+        if (id.HasValue)
+        {
+            var curriculo = await _context.Curriculos.FindAsync(id.Value);
+
+            if (curriculo == null)
+            {
+                return NotFound(new
+                {
+                    mensagem = $"Nenhum currículo encontrado com o ID {id.Value}."
+                });
+            }
+
+            return Ok(curriculo);
+        }
+
         var curriculos = await _context.Curriculos.ToListAsync();
 
         return Ok(curriculos);
@@ -47,9 +62,16 @@ public class CurriculosController : ControllerBase
     [HttpPost("ler-pdf")]
     public async Task<IActionResult> LerPdf(IFormFile arquivo)
     {
+        const long tamanhoMaximo = 5 * 1024 * 1024;
+
         if (arquivo == null || arquivo.Length == 0)
         {
             return BadRequest("Nenhum arquivo foi enviado.");
+        }
+
+        if (arquivo.Length > tamanhoMaximo)
+        {
+            return BadRequest("O arquivo PDF deve ter no máximo 5 MB.");
         }
 
         if (arquivo.ContentType != "application/pdf")
